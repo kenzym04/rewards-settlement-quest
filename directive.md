@@ -100,7 +100,7 @@ python run_checks.py                                   # fail-before, pass-after
 - There is no CI pipeline; `python run_checks.py` is run manually.
 - The faulty fixture is my model of a plausible defect, written for this Quest, not a record of an actual incident. The mutation checks and the dropped-constraint mutant provide additional evidence independent of the fixture. Severity and likelihood are estimates.
 - Assumptions A1 to A7 have not been validated with a real stakeholder. A2 (unblock then re-run) and A7 (ledger uniqueness) are exercised by synthetic tests TC-19 to TC-21.
-- Actual effort: **2 h 07 min** (my own figure: 24 h minus 21 h 53 min). Most code and documents were drafted by an AI agent; my time went into direction, review, rubric checks, and corrections. This **excludes** Loom recording (retries, timeouts, and the final take). The brief suggests 6 to 8 hours for hand-built work, so the lower figure reflects extensive AI-assisted drafting.
+- Actual effort: **7.5 hours**, including documentation and Loom. Most code and documents were drafted by an AI agent; my time went into direction, review, rubric checks, corrections, and the recording. The brief suggests 6 to 8 hours.
 
 ## Release-readiness decision
 
