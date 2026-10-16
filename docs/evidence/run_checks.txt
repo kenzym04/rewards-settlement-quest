@@ -1,0 +1,36 @@
+== 1. LEGACY (faulty) implementation, in-memory ledger: the suite must FAIL ==
+tests run: 21, failing: 9
+  FAIL test_tc10_duplicate_task_id_in_input_is_paid_once
+  FAIL test_tc12_retry_with_same_input_creates_no_second_payout
+  FAIL test_tc13_task_paid_in_earlier_window_is_not_paid_again_later
+  FAIL test_tc14_retry_after_config_change_keeps_original_credits
+  FAIL test_tc15_crash_mid_run_then_retry_pays_each_task_exactly_once
+  FAIL test_tc17_retry_after_notification_failure_resends_only_the_failed_one
+  FAIL test_tc18_crash_between_send_and_mark_notified_never_double_pays
+  FAIL test_tc19_unblocked_account_is_paid_once_on_rerun_of_same_window
+  FAIL test_tc20_concurrent_runs_for_one_window_pay_each_task_once
+
+== 2. FIXED implementation, in-memory ledger: the suite must PASS ==
+tests run: 21, failing: 0
+
+== 3. FIXED implementation, SQLite ledger (real UNIQUE constraints): must PASS ==
+tests run: 21, failing: 0
+
+== 4. LEGACY implementation, SQLite ledger: must still FAIL (constraint stops the double payout, not the false notifications) ==
+tests run: 21, failing: 5
+  FAIL test_tc12_retry_with_same_input_creates_no_second_payout
+  FAIL test_tc15_crash_mid_run_then_retry_pays_each_task_exactly_once
+  FAIL test_tc17_retry_after_notification_failure_resends_only_the_failed_one
+  FAIL test_tc18_crash_between_send_and_mark_notified_never_double_pays
+  FAIL test_tc20_concurrent_runs_for_one_window_pay_each_task_once
+
+== 5. MUTANTS of the fixed code ==
+  upper boundary included              KILLED (1 failing) as expected
+  lower boundary excluded              KILLED (3 failing) as expected
+  UTC offset ignored                   KILLED (1 failing) as expected
+  attempt-scoped payout key            KILLED (7 failing) as expected
+  payout reversed on notify failure    KILLED (1 failing) as expected
+  DB UNIQUE constraints dropped        KILLED (9 failing) as expected
+  input de-duplication removed         SURVIVED           as expected
+
+RESULT: ALL EXPECTATIONS HOLD

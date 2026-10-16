@@ -1,0 +1,198 @@
+test_tc19_unblocked_account_is_paid_once_on_rerun_of_same_window (tests.test_settlement.TestAdminChanges.test_tc19_unblocked_account_is_paid_once_on_rerun_of_same_window) ... FAIL
+test_tc10_duplicate_task_id_in_input_is_paid_once (tests.test_settlement.TestDuplicatesAndRetries.test_tc10_duplicate_task_id_in_input_is_paid_once) ... FAIL
+test_tc11_conflicting_duplicate_uses_earliest_completed_at (tests.test_settlement.TestDuplicatesAndRetries.test_tc11_conflicting_duplicate_uses_earliest_completed_at) ... ok
+test_tc12_retry_with_same_input_creates_no_second_payout (tests.test_settlement.TestDuplicatesAndRetries.test_tc12_retry_with_same_input_creates_no_second_payout) ... FAIL
+test_tc13_task_paid_in_earlier_window_is_not_paid_again_later (tests.test_settlement.TestDuplicatesAndRetries.test_tc13_task_paid_in_earlier_window_is_not_paid_again_later) ... FAIL
+test_tc14_retry_after_config_change_keeps_original_credits (tests.test_settlement.TestDuplicatesAndRetries.test_tc14_retry_after_config_change_keeps_original_credits) ... FAIL
+test_tc07_non_completed_tasks_are_skipped_and_not_notified (tests.test_settlement.TestEligibility.test_tc07_non_completed_tasks_are_skipped_and_not_notified) ... ok
+test_tc08_blocked_account_is_skipped_and_reported (tests.test_settlement.TestEligibility.test_tc08_blocked_account_is_skipped_and_reported) ... ok
+test_tc09_empty_input_creates_nothing (tests.test_settlement.TestEligibility.test_tc09_empty_input_creates_nothing) ... ok
+test_tc01_happy_path_pays_10_credits_per_task_and_notifies_after_payout (tests.test_settlement.TestHappyPathAndWindow.test_tc01_happy_path_pays_10_credits_per_task_and_notifies_after_payout) ... ok
+test_tc02_lower_boundary_is_included (tests.test_settlement.TestHappyPathAndWindow.test_tc02_lower_boundary_is_included) ... ok
+test_tc03_upper_boundary_is_excluded_and_paid_next_week_once (tests.test_settlement.TestHappyPathAndWindow.test_tc03_upper_boundary_is_excluded_and_paid_next_week_once) ... ok
+test_tc04_task_times_in_other_timezones_are_converted_to_utc (tests.test_settlement.TestHappyPathAndWindow.test_tc04_task_times_in_other_timezones_are_converted_to_utc) ... ok
+test_tc05_run_time_in_other_timezone_maps_to_same_window (tests.test_settlement.TestHappyPathAndWindow.test_tc05_run_time_in_other_timezone_maps_to_same_window) ... ok
+test_tc06_naive_datetime_is_rejected_before_any_payout (tests.test_settlement.TestHappyPathAndWindow.test_tc06_naive_datetime_is_rejected_before_any_payout) ... ok
+test_tc20_concurrent_runs_for_one_window_pay_each_task_once (tests.test_settlement.TestLedgerAndConcurrency.test_tc20_concurrent_runs_for_one_window_pay_each_task_once) ... FAIL
+test_tc21_database_rejects_a_second_payout_for_the_same_task_id (tests.test_settlement.TestLedgerAndConcurrency.test_tc21_database_rejects_a_second_payout_for_the_same_task_id) ... ok
+test_tc15_crash_mid_run_then_retry_pays_each_task_exactly_once (tests.test_settlement.TestPartialFailure.test_tc15_crash_mid_run_then_retry_pays_each_task_exactly_once) ... FAIL
+test_tc16_notification_failure_does_not_reverse_payout (tests.test_settlement.TestPartialFailure.test_tc16_notification_failure_does_not_reverse_payout) ... ok
+test_tc17_retry_after_notification_failure_resends_only_the_failed_one (tests.test_settlement.TestPartialFailure.test_tc17_retry_after_notification_failure_resends_only_the_failed_one) ... FAIL
+test_tc18_crash_between_send_and_mark_notified_never_double_pays (tests.test_settlement.TestPartialFailure.test_tc18_crash_between_send_and_mark_notified_never_double_pays) ... FAIL
+
+======================================================================
+FAIL: test_tc19_unblocked_account_is_paid_once_on_rerun_of_same_window (tests.test_settlement.TestAdminChanges.test_tc19_unblocked_account_is_paid_once_on_rerun_of_same_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 232, in test_tc19_unblocked_account_is_paid_once_on_rerun_of_same_window
+    self.assertEqual(self.paid_task_ids(), ["bad", "good"])
+AssertionError: Lists differ: ['bad', 'bad', 'good', 'good', 'good'] != ['bad', 'good']
+
+First differing element 1:
+'bad'
+'good'
+
+First list contains 3 additional elements.
+First extra element 2:
+'good'
+
+- ['bad', 'bad', 'good', 'good', 'good']
++ ['bad', 'good']
+
+======================================================================
+FAIL: test_tc10_duplicate_task_id_in_input_is_paid_once (tests.test_settlement.TestDuplicatesAndRetries.test_tc10_duplicate_task_id_in_input_is_paid_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 145, in test_tc10_duplicate_task_id_in_input_is_paid_once
+    self.assertEqual(self.paid_task_ids(), ["dup", "other"])
+AssertionError: Lists differ: ['dup', 'dup', 'other'] != ['dup', 'other']
+
+First differing element 1:
+'dup'
+'other'
+
+First list contains 1 additional elements.
+First extra element 2:
+'other'
+
+- ['dup', 'dup', 'other']
+?        -------
+
++ ['dup', 'other']
+
+======================================================================
+FAIL: test_tc12_retry_with_same_input_creates_no_second_payout (tests.test_settlement.TestDuplicatesAndRetries.test_tc12_retry_with_same_input_creates_no_second_payout)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 158, in test_tc12_retry_with_same_input_creates_no_second_payout
+    self.assertEqual(self.paid_task_ids(), ["t1", "t2"])
+AssertionError: Lists differ: ['t1', 't1', 't2', 't2'] != ['t1', 't2']
+
+First differing element 1:
+'t1'
+'t2'
+
+First list contains 2 additional elements.
+First extra element 2:
+'t2'
+
+- ['t1', 't1', 't2', 't2']
++ ['t1', 't2']
+
+======================================================================
+FAIL: test_tc13_task_paid_in_earlier_window_is_not_paid_again_later (tests.test_settlement.TestDuplicatesAndRetries.test_tc13_task_paid_in_earlier_window_is_not_paid_again_later)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 167, in test_tc13_task_paid_in_earlier_window_is_not_paid_again_later
+    self.assertEqual(self.paid_task_ids(), ["t1"])
+AssertionError: Lists differ: ['t1', 't1'] != ['t1']
+
+First list contains 1 additional elements.
+First extra element 1:
+'t1'
+
+- ['t1', 't1']
++ ['t1']
+
+======================================================================
+FAIL: test_tc14_retry_after_config_change_keeps_original_credits (tests.test_settlement.TestDuplicatesAndRetries.test_tc14_retry_after_config_change_keeps_original_credits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 172, in test_tc14_retry_after_config_change_keeps_original_credits
+    self.assertEqual(self.store.total_credits("acct-1"), 10)
+AssertionError: 30 != 10
+
+======================================================================
+FAIL: test_tc20_concurrent_runs_for_one_window_pay_each_task_once (tests.test_settlement.TestLedgerAndConcurrency.test_tc20_concurrent_runs_for_one_window_pay_each_task_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 275, in test_tc20_concurrent_runs_for_one_window_pay_each_task_once
+    self.assertEqual(notifier.sent_without_payout, [])
+AssertionError: Lists differ: ['c00', 'c01', 'c02', 'c03', 'c04', 'c05',[93 chars]c19'] != []
+
+First list contains 20 additional elements.
+First extra element 0:
+'c00'
+
++ []
+- ['c00',
+-  'c01',
+-  'c02',
+-  'c03',
+-  'c04',
+-  'c05',
+-  'c06',
+-  'c07',
+-  'c08',
+-  'c09',
+-  'c10',
+-  'c11',
+-  'c12',
+-  'c13',
+-  'c14',
+-  'c15',
+-  'c16',
+-  'c17',
+-  'c18',
+-  'c19']
+
+======================================================================
+FAIL: test_tc15_crash_mid_run_then_retry_pays_each_task_exactly_once (tests.test_settlement.TestPartialFailure.test_tc15_crash_mid_run_then_retry_pays_each_task_exactly_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 185, in test_tc15_crash_mid_run_then_retry_pays_each_task_exactly_once
+    self.assertEqual(self.paid_task_ids(store), ["t1", "t2", "t3", "t4"])
+AssertionError: Lists differ: ['t1', 't1', 't2', 't2', 't3', 't4'] != ['t1', 't2', 't3', 't4']
+
+First differing element 1:
+'t1'
+'t2'
+
+First list contains 2 additional elements.
+First extra element 4:
+'t3'
+
+- ['t1', 't1', 't2', 't2', 't3', 't4']
+?        ------      ------
+
++ ['t1', 't2', 't3', 't4']
+
+======================================================================
+FAIL: test_tc17_retry_after_notification_failure_resends_only_the_failed_one (tests.test_settlement.TestPartialFailure.test_tc17_retry_after_notification_failure_resends_only_the_failed_one)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 204, in test_tc17_retry_after_notification_failure_resends_only_the_failed_one
+    self.assertEqual(healthy.attempted, ["t2"])
+AssertionError: Lists differ: ['t1', 't2', 't3'] != ['t2']
+
+First differing element 0:
+'t1'
+'t2'
+
+First list contains 2 additional elements.
+First extra element 1:
+'t2'
+
+- ['t1', 't2', 't3']
++ ['t2']
+
+======================================================================
+FAIL: test_tc18_crash_between_send_and_mark_notified_never_double_pays (tests.test_settlement.TestPartialFailure.test_tc18_crash_between_send_and_mark_notified_never_double_pays)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Admin\Documents\rewards-settlement-quest\tests\test_settlement.py", line 213, in test_tc18_crash_between_send_and_mark_notified_never_double_pays
+    self.assertEqual(self.paid_task_ids(store), ["t1", "t2"])  # payouts are already stored
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['t1'] != ['t1', 't2']
+
+Second list contains 1 additional elements.
+First extra element 1:
+'t2'
+
+- ['t1']
++ ['t1', 't2']
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.800s
+
+FAILED (failures=9)
